@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Cursor : MonoBehaviour {
 
-    CameraRaycaster cr;
+    CameraRaycaster cameraRaycaster;
     // Use this for initialization
     void Start () {
-        cr = FindObjectOfType<CameraRaycaster>();
-	}
+        cameraRaycaster = Camera.main.GetComponent<CameraRaycaster>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        print(cr.layerHit);
+       // print(cameraRaycaster.layerHit);
 	}
 }
