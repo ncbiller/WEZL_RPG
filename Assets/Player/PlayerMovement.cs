@@ -8,20 +8,20 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] float ClickToMoveRadius = 0.2f;
 
-    ThirdPersonCharacter m_Character;   // A reference to the ThirdPersonCharacter on the object
+    ThirdPersonCharacter thirdPersonCharacter;   // A reference to the ThirdPersonCharacter on the object
     CameraRaycaster cameraRaycaster;
     Vector3 currentClickTarget;
-    Transform m_Cam;
-    Vector3 m_CamForward;
-    Vector3 m_Move;
+    Transform cameraTransform;
+    Vector3 cameraForward;
+    Vector3 movement;
 
     bool isInDirectMode = false; 
     private void Start()
     {
         cameraRaycaster = Camera.main.GetComponent<CameraRaycaster>();
-        m_Cam = Camera.main.transform;
+        cameraTransform = Camera.main.transform;
         //cameraRaycaster = FindObjectOfType<CameraRaycaster>();
-        m_Character = GetComponent<ThirdPersonCharacter>();
+        thirdPersonCharacter = GetComponent<ThirdPersonCharacter>();
         currentClickTarget = transform.position;
     }
 
@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G)) // TODO allow player to map later or add to menu.
         {
             isInDirectMode = !isInDirectMode;
+            currentClickTarget = transform.position; // reset target for click to move
         }
 
         if (isInDirectMode)
@@ -48,10 +49,10 @@ public class PlayerMovement : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        m_CamForward = Vector3.Scale(m_Cam.forward, new Vector3(1, 0, 1)).normalized;
-        m_Move = v * m_CamForward + h * m_Cam.right;
+        cameraForward = Vector3.Scale(cameraTransform.forward, new Vector3(1, 0, 1)).normalized;
+        movement = v * cameraForward + h * cameraTransform.right;
 
-        m_Character.Move(m_Move, false, false);
+        thirdPersonCharacter.Move(movement, false, false);
     }
 
     private void ProcessMouseMovement()
@@ -60,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
         {   
             print("Cursor raycast hit" + cameraRaycaster.hit.collider.gameObject.name.ToString());
 
-            switch (cameraRaycaster.layerHit)
+            switch (cameraRaycaster.currentLayerHit)
             {
                 case Layer.Walkable:
                     currentClickTarget = cameraRaycaster.hit.point;
@@ -79,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         if ((currentClickTarget - transform.position).magnitude < ClickToMoveRadius)
             currentClickTarget = transform.position;
 
-        m_Character.Move(currentClickTarget - transform.position, false, false);
+        thirdPersonCharacter.Move(currentClickTarget - transform.position, false, false);
     }
 }
 

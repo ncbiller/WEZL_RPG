@@ -22,7 +22,7 @@ public class CursorAffordance : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
-        switch(cameraRaycaster.layerHit)
+        switch(cameraRaycaster.currentLayerHit)
         {
             case Layer.Walkable:
                 cursorTexture = walkCursor;
@@ -44,7 +44,7 @@ public class CursorAffordance : MonoBehaviour {
         }
 
         Cursor.SetCursor(cursorTexture, cursorOffset, CursorMode.Auto);
-        print(cameraRaycaster.layerHit);
+        print(cameraRaycaster.currentLayerHit);
        
 	}
 }
