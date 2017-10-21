@@ -22,9 +22,9 @@ public class CameraRaycaster : MonoBehaviour
         get { return layerHit; }
     }
 
-    public delegate void OnLayerChange(); // declare a delegate type (a function pointer)
+    public delegate void OnLayerChange(Layer newLayer); // declare a delegate type (a function pointer)
 
-    public OnLayerChange layerChangeObservers;
+    public event OnLayerChange onLayerChange;
 
     void Start() { 
 
@@ -46,7 +46,7 @@ public class CameraRaycaster : MonoBehaviour
                 if (layerHit != layer)
                 {
                     layerHit = layer;
-                    layerChangeObservers();
+                    onLayerChange(layer);
                 }
 
 
