@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {   
-            print("Cursor raycast hit" + cameraRaycaster.hit.collider.gameObject.name.ToString());
+            //print("Cursor raycast hit" + cameraRaycaster.hit.collider.gameObject.name.ToString());
 
             switch (cameraRaycaster.currentLayerHit)
             {
