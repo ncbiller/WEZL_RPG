@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(CameraRaycaster))]
 public class CursorAffordance : MonoBehaviour {
 
     [SerializeField] Texture2D walkCursor = null;
     [SerializeField] Texture2D attackCursor = null;
     [SerializeField] Texture2D errorCursor = null;
 
-    [SerializeField] Vector2 cursorOffset = new Vector2(96, 96);
+    [SerializeField] Vector2 cursorOffset = new Vector2(0, 0);
 
     Texture2D cursorTexture;
 

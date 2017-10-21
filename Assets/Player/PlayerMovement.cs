@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 m_CamForward;
     Vector3 m_Move;
 
-    bool isInDirectMode = false; //TODO consider making static later 
+    bool isInDirectMode = false; 
     private void Start()
     {
         cameraRaycaster = Camera.main.GetComponent<CameraRaycaster>();
